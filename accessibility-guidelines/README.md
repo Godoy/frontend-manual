@@ -1,0 +1,244 @@
+HBC Accessibility Guideline
+=====
+
+- [Objective](#objective)
+- [ADA](#ada)
+- [Accessibility Standard - WCAG 2.0](#accessibility-standard---wcag-20)
+- [ARIA](#aria)
+  - [Role](#role)
+  - [Most useful ARIA attributes](#most-useful-aria-attributes)
+- [Pa11y](#pa11y)
+  - [Install](#install)
+  - [How to use](#how-to-use)
+- [ADA Reporter](#ada-reporter)
+  - [Reporter script](#reporter-script)
+  - [Google Exporter](#google-exporter)
+  - [Dashboard](#dashboard)
+  - [Roadmap/TODO](#roadmaptodo)
+- [Functional Accessibility Tests](#functional-accessibility-tests)
+- [Accessibility Pipeline](#accessibility-pipeline)
+- [Screen Readers](#screen-readers)
+  - [Voice Over](#voice-over)
+  - [NVDA](#nvda)
+
+
+Objective
+=====
+
+The purpose of this document is to be a quick and practical reference on how to apply accessibility in the context of HBC projects. This document will not detail accessibility or explain the techniques, but give an overview of what has already been done to meeting the requirements of the ADA, what needs to be maintained, and what still needs to be done.
+
+There are great articles and resources about accessibility in [WebAim](https://webaim.org/). We also indicate this free course on Udacity: [Web Accessibility](https://udacity.com/course/web-accessibility--ud891).
+
+
+ADA
+=====
+
+The [Americans with Disabilities Act](https://www.ada.gov/index.html) (**ADA**) is a civil rights law that prohibits discrimination against individuals with disabilities. Despite being the focus of this document, the law is not just about accessibility on the internet, but any areas of public life, including jobs, transportation, and places that are open to the general public.
+
+The ADA is divided into five titles (or sections) that relate to different areas of public life. Although the language of the ADA does not explicitly mention the Internet, the Department has taken the position that title II covers Internet Web site access.
+
+There is a [ADA Best Practices Tool Kit for State and Local Governments](https://www.ada.gov/pcatoolkit/chap5chklist.htm) with a website accessibility checklist.
+
+Additional guidance is available in the Web Content Accessibility Guidelines (WCAG).
+
+
+Accessibility Standard - WCAG 2.0
+=====
+
+[Web Content Accessibility Guidelines](https://www.w3.org/WAI/intro/wcag.php) (**WCAG**) has the goal of providing a single shared standard for web content accessibility that meets the needs of individuals, organizations, and governments internationally. It is developed and maintained by the [Web Accessibility Initiative](https://www.w3.org/WAI/) (**WAI**), is a subgroup of the World Wide Web Consortium (W3C).
+
+The WCAG 2.0 has 12 guidelines that are organized under 4 principles: perceivable, operable, understandable, and robust. For each guideline, there are testable success criteria, which are at three levels: A, AA, and AAA.
+
+![WCAG Standard][img-wcag-standard]
+
+In order to be ADA compliant, we adopted the WCAG 2.0 AA standard.
+
+ARIA
+=====
+
+[Accessible Rich Internet Applications](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA) (ARIA) defines ways to make Web content and Web applications (especially those developed with Ajax and JavaScript) more accessible to people with disabilities.
+
+This specification provides an ontology of roles, states, and properties that define accessible user interface elements and can be used to improve the accessibility and interoperability of web content and applications.
+
+Role
+------
+
+The role attribute defines the type of element. There are a lot of values that can be used, such as dialog, button, checkbox, progressbar, etc. See a list of roles in Mozilla Aria Techniques.
+
+Web developers must not use the ARIA role and aria-* attributes in a manner that conflicts with the semantics described in the Document conformance requirements for use of ARIA attributes in HTML table.
+
+Most useful ARIA attributes
+------
+
+- aria-hidden
+
+The aria-hidden="true" property turns a html element hidden/ignored by screen readers. This is very useful in decorative elements, such as a decorative icon inside a text block or title.
+
+- aria-label / aria-labelledby
+
+This attributes are used to tell screen reader which text should be read in a element. The difference is that aria-label receives directly the text, and aria-labelledby receives the elements IDs that should be used for screen reader.
+
+- aria-live
+
+Areas or widgets with dynamic content which updates without a page reload can be decorated with aria-live="polite". The screen reader will speak changes in these areas whenever the user is idle. [See more about aria-live](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions).
+
+See more about WAI-ARIA on [W3C Using ARIA](https://w3c.github.io/using-aria/).
+
+
+Pa11y
+=====
+
+[Pa11y](http://pa11y.org/) is a automated accessibility testing tool. It runs HTML CodeSniffer from the command line for programmatic accessibility reporting.
+
+[CodeSniffer](http://squizlabs.github.io/HTML_CodeSniffer/) is a client-side script that checks HTML source code and detects violations of a defined coding standard. In our case, we run with WCAG 2.0 AA standard.
+
+The report returns a lot of issues classified between Errors, Warnings or Notices. Anything that is not marked as an Error should be manually tested:
+- Warnings are items that HTML_CodeSniffer are able to detect as a potential problem, but require manual inspection to determine whether it is a failure.
+- Notices are items that HTML_CodeSniffer cannot automatically detect, but should be manually inspected to ensure compliance with the standard.
+
+There are a lot of techniques that can be applied depending on the failed success criterion. See the complete [list of success criterion and techniques here](http://squizlabs.github.io/HTML_CodeSniffer/Standards/WCAG2/).
+
+Install
+------
+
+Install Pa11y globally with [this npm package](https://www.npmjs.com/package/pa11y):
+
+`npm install -g pa11y@beta`
+
+We used pa11y version 5.x (currently beta version) in order to be able to use Chromium - pa11y 4.x uses phantomjs.
+
+How to use
+------
+
+Run an accessibility test against a URL:
+
+`pa11y http://example.com`
+
+Or, in JavaScript:
+
+```
+const pa11y = require('pa11y');
+
+pa11y('http://example.com/').then((results) => {
+    // Do something with the results
+});
+```
+
+See more in the [README on Pa11y github page](https://github.com/pa11y/pa11y/).
+
+
+ADA Reporter
+=====
+
+The ADA Reporter is a NPM Package that analyzes several pages on the common platform banners (Saks, Saks Off 5th and Lord & Taylor) and generate a report with the accessibility results.
+
+All the necessary documentation to install and run can be found in [this repository on Github](https://github.com/saksdirect/ada-reporter).
+
+
+Reporter script
+------
+
+The core command-line ada-reporter generates a report with the code errors found by banner and page in a JSON file. This generated report is used in Google Exporter, Dashboard and in the Pipeline.
+
+See options running `ada-reporter --help`
+
+Google Exporter
+------
+
+Is possible to send the generated report to a Google Spreadsheet running the following command from project folder:
+
+```
+node google.js
+```
+
+Dashboard
+------
+
+There is an accessibility dashboard to display the report results available on the `./reports` directory. Start the express server running:
+```
+node dashboard.js
+```
+
+![Accessibility Dashboard][img-dashboard]
+
+
+Roadmap/TODO
+------
+
+There are a lot of things to do:
+- Split ADA Reporter project in different repositories by functionality;
+- Allow to set Google Spreadsheet ID on the google.js script;
+- Run pa11y actions from ada-reporter script (currently the actions are in another branch);
+
+
+Functional Accessibility Tests
+=====
+
+The main purpose of this test is to validate the execution of the purchase flow by a visually impaired user, having all navigation and interaction via a keyboard.
+
+**Structure (Page objects + FluentLenium)**
+
+The tests are in the structure of Smoke tests and can be found in the saks_website repository.
+
+Run via command line
+```
+./gradlew smokeTestSaksAccessibility -Dwebsite=<url_environment>
+```
+
+
+Accessibility Pipeline
+=====
+
+The accessibility pipeline can be found on http://go.saksdirect.com/go/pipelines.
+
+The first step uses ADA Reporter script to analyze issues from deployed code on the STQA environment. There is a fixed threshold for each page. If the number of errors is greater than this limit, the pipeline job fails.
+
+The second step execute accessibility functional tests.
+
+
+Screen Readers
+=====
+
+Screen readers convert digital text into synthesized speech. They empower users to hear content and navigate with the keyboard.
+
+Some browsers seem to work better with certain screen readers:
+- Firefox with [NVDA](https://nvaccess.org/download/)
+- Chrome or Internet Explorer with [JAWS](https://freedomscientific.com/JAWSHQ/JAWSHeadquarters01)
+- Safari with [VoiceOver](https://apple.com/accessibility/)
+- Edge with [Narrator](https://microsoft.com/accessibility/windows)
+
+(Source: [Webaim](https://webaim.org/techniques/screenreader/))
+
+
+
+Voice Over
+------
+
+- Built into Apple Inc.'s macOS and iOS
+- Free
+- Open with: Command+F5
+- Navigation:
+  - Tab
+  - Shift+Tab
+  - Control+Option+Arrow
+  - [See more](https://help.apple.com/voiceover/vo/en/VOKeysColor_1.html)
+
+
+
+NVDA
+------
+
+- Windows 7 or superior
+- Free (https://www.nvaccess.org/download/)
+- Open with: Control+Alt+n
+- Navigation:
+  - Tab
+  - Shift+Tab
+  - [See more](http://www.accessiq.org/sites/default/files/nvda-keyboard-overlay_laptop_1670x1125.gif)
+
+
+
+
+[img-wcag-standard]: https://github.com/saksdirect/frontend-manual/raw/master/accessibility-guidelines/wcag-standard.png "WCAG Standard"
+
+[img-dashboard]: https://github.com/saksdirect/frontend-manual/raw/master/accessibility-guidelines/dashboard.png "Accessibility Dashboard"
