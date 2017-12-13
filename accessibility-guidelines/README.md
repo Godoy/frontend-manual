@@ -3,7 +3,7 @@ HBC Accessibility Guideline
 
 - [1. Objective](#1-objective)
 - [2. ADA](#2-ada)
-- [3. Accessibility Standard - WCAG 2.0](#3-accessibility-standard---wcag-20)
+- [3. Accessibility standard - WCAG 2.0](#3-accessibility-standard---wcag-20)
 - [4. ARIA](#4-aria)
   - [4.1. Role](#41-role)
   - [4.2. Most useful ARIA attributes](#42-most-useful-aria-attributes)
@@ -20,6 +20,12 @@ HBC Accessibility Guideline
 - [9. Screen Readers](#9-screen-readers)
   - [9.1. Voice Over](#91-voice-over)
   - [9.2. NVDA](#92-nvda)
+- [10. Most found issues and how to fix them](#10-most-found-issues-and-how-to-fix-them)
+  - [10.1. Alt text](#101-alt-text)
+  - [10.2. Duplicate ids](#102-duplicate-ids)
+  - [10.3. Links without href](#103-links-without-href)
+  - [10.4. Labels](#104-labels)
+  - [10.5. Modals](#105-modals)
 
 
 # 1. Objective
@@ -40,7 +46,7 @@ There is a [ADA Best Practices Tool Kit for State and Local Governments](https:/
 Additional guidance is available in the Web Content Accessibility Guidelines (WCAG).
 
 
-# 3. Accessibility Standard - WCAG 2.0
+# 3. Accessibility standard - WCAG 2.0
 
 [Web Content Accessibility Guidelines](https://www.w3.org/WAI/intro/wcag.php) (**WCAG**) has the goal of providing a single shared standard for web content accessibility that meets the needs of individuals, organizations, and governments internationally. It is developed and maintained by the [Web Accessibility Initiative](https://www.w3.org/WAI/) (**WAI**), is a subgroup of the World Wide Web Consortium (W3C).
 
@@ -216,6 +222,52 @@ Some browsers seem to work better with certain screen readers:
   - Tab
   - Shift+Tab
   - [See more](http://www.accessiq.org/sites/default/files/nvda-keyboard-overlay_laptop_1670x1125.gif)
+
+
+# 10. Most found issues and how to fix them
+
+## 10.1. Alt text
+
+Every image must have an alt attribute.
+
+How to write appropriate alternative texts:
+- Be accurate
+- Be succinct
+- Don't be redundant
+- Don't use "image of" or "graphic of"
+
+Decorative images still need an alt attribute, but it should be null (`alt=""`).
+
+## 10.2. Duplicate ids
+
+Duplicate values of type ID can be problematic for user agents that rely on this attribute to accurately convey relationships between different parts of content to users.
+
+- Verify at the page if the new ID attribute that you're adding are not already in use.
+- For dynamic components you may need to merge with item's id.
+
+## 10.3. Links without href
+
+Links must have a non-empty href attribute in order to be considered true links and to be accessible to keyboard users.
+
+- Check if you couldn't use a button instead.
+- Is not the best solution but you can go with `href="#"`.
+
+## 10.4. Labels
+Labels or instructions are provided when content requires user input.
+
+- All labels should have a valid `for` attribute.
+- There are some cases that you can use ARIA labeling properties:
+  - aria-labelledby
+  - aria-describedby
+  - and aria-label
+
+
+## 10.5. Modals
+When dealing with modal windows the tab navigation should be restrained to the visible context, and when you leave this window you should take back to the preview's point.
+
+- Use JavaScript to perform the "tabtrapping".
+- With `document.activeElement` you can retrieve cursor position to redirect later.
+- See [W3C modal example](https://www.w3.org/TR/wai-aria-practices-1.1/examples/dialog-modal/dialog.html) with the best practices
 
 
 
