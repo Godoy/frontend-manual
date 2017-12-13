@@ -179,11 +179,16 @@ Run via command line:
 
 # 8. Accessibility Pipeline
 
-The accessibility pipeline can be found on http://go.saksdirect.com/go/pipelines.
+The accessibility pipeline can be found on [GoCD](http://go.saksdirect.com/go/tab/pipeline/history/website-accessibility-check). This pipeline is triggered by the STQA deployment pipelines, which are  [Saks_QA_Website_Master](http://go.saksdirect.com/go/tab/pipeline/history/Saks_QA_Website_Master) -- deployment to Saks STQA from the _saks_website_ master branch -- and [Saks_QA_Website_Release](http://go.saksdirect.com/go/tab/pipeline/history/Saks_QA_Website_Release) -- deployment to Saks STQA from the _saks_website_ release branch.
 
-The first step uses ADA Reporter script to analyze issues from deployed code on the STQA environment. There is a fixed threshold for each page. If the number of errors is greater than this limit, the pipeline job fails.
+![Accessibility Pipeline flow][img-pipeline-flow]
 
-The second step execute accessibility functional tests.
+The accessibility pipeline at the moment has one step, which is run the  ADA Reporter script to analyze issues on several pages of the website. There is a fixed threshold for each page. If the number of errors is greater than this limit, the pipeline job fails.
+
+![Accessibility Pipeline result][img-pipeline-result]
+
+There is a plan to introduce a second step to this pipeline, which will execute accessibility functional tests.
+
 
 
 # 9. Screen Readers
@@ -274,3 +279,7 @@ When dealing with modal windows the tab navigation should be restrained to the v
 [img-wcag-standard]: https://github.com/saksdirect/frontend-manual/raw/master/accessibility-guidelines/imgs/wcag-standard.png "WCAG Standard"
 
 [img-dashboard]: https://github.com/saksdirect/frontend-manual/raw/master/accessibility-guidelines/imgs/dashboard.png "Accessibility Dashboard"
+
+[img-pipeline-flow]: https://github.com/saksdirect/frontend-manual/raw/master/accessibility-guidelines/imgs/pipeline-flow.png "Accessibility Pipeline flow"
+
+[img-pipeline-result]: https://github.com/saksdirect/frontend-manual/raw/master/accessibility-guidelines/imgs/pipeline-result.png "Accessibility Pipeline result"
