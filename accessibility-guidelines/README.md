@@ -1,37 +1,35 @@
 HBC Accessibility Guideline
 =====
 
-- [Objective](#objective)
-- [ADA](#ada)
-- [Accessibility Standard - WCAG 2.0](#accessibility-standard---wcag-20)
-- [ARIA](#aria)
-  - [Role](#role)
-  - [Most useful ARIA attributes](#most-useful-aria-attributes)
-- [Pa11y](#pa11y)
-  - [Install](#install)
-  - [How to use](#how-to-use)
-- [ADA Reporter](#ada-reporter)
-  - [Reporter script](#reporter-script)
-  - [Google Exporter](#google-exporter)
-  - [Dashboard](#dashboard)
-  - [Roadmap/TODO](#roadmaptodo)
-- [Functional Accessibility Tests](#functional-accessibility-tests)
-- [Accessibility Pipeline](#accessibility-pipeline)
-- [Screen Readers](#screen-readers)
-  - [Voice Over](#voice-over)
-  - [NVDA](#nvda)
+- [1. Objective](#1-objective)
+- [2. ADA](#2-ada)
+- [3. Accessibility Standard - WCAG 2.0](#3-accessibility-standard---wcag-20)
+- [4. ARIA](#4-aria)
+  - [4.1. Role](#41-role)
+  - [4.2. Most useful ARIA attributes](#42-most-useful-aria-attributes)
+- [5. Pa11y](#5-pa11y)
+  - [5.1. Install](#51-install)
+  - [5.2. How to use](#52-how-to-use)
+- [6. ADA Reporter](#6-ada-reporter)
+  - [6.1. Reporter script](#61-reporter-script)
+  - [6.2. Google Exporter](#62-google-exporter)
+  - [6.3. Dashboard](#63-dashboard)
+  - [6.4. Roadmap/TODO](#64-roadmaptodo)
+- [7. Functional Accessibility Tests](#7-functional-accessibility-tests)
+- [8. Accessibility Pipeline](#8-accessibility-pipeline)
+- [9. Screen Readers](#9-screen-readers)
+  - [9.1. Voice Over](#91-voice-over)
+  - [9.2. NVDA](#92-nvda)
 
 
-Objective
-=====
+# 1. Objective
 
 The purpose of this document is to be a quick and practical reference on how to apply accessibility in the context of HBC projects. This document will not detail accessibility or explain the techniques, but give an overview of what has already been done to meeting the requirements of the ADA, what needs to be maintained, and what still needs to be done.
 
 There are great articles and resources about accessibility in [WebAim](https://webaim.org/). We also indicate this free course on Udacity: [Web Accessibility](https://udacity.com/course/web-accessibility--ud891).
 
 
-ADA
-=====
+# 2. ADA
 
 The [Americans with Disabilities Act](https://www.ada.gov/index.html) (**ADA**) is a civil rights law that prohibits discrimination against individuals with disabilities. Despite being the focus of this document, the law is not just about accessibility on the internet, but any areas of public life, including jobs, transportation, and places that are open to the general public.
 
@@ -42,8 +40,7 @@ There is a [ADA Best Practices Tool Kit for State and Local Governments](https:/
 Additional guidance is available in the Web Content Accessibility Guidelines (WCAG).
 
 
-Accessibility Standard - WCAG 2.0
-=====
+# 3. Accessibility Standard - WCAG 2.0
 
 [Web Content Accessibility Guidelines](https://www.w3.org/WAI/intro/wcag.php) (**WCAG**) has the goal of providing a single shared standard for web content accessibility that meets the needs of individuals, organizations, and governments internationally. It is developed and maintained by the [Web Accessibility Initiative](https://www.w3.org/WAI/) (**WAI**), is a subgroup of the World Wide Web Consortium (W3C).
 
@@ -53,22 +50,19 @@ The WCAG 2.0 has 12 guidelines that are organized under 4 principles: perceivabl
 
 In order to be ADA compliant, we adopted the WCAG 2.0 AA standard.
 
-ARIA
-=====
+# 4. ARIA
 
 [Accessible Rich Internet Applications](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA) (ARIA) defines ways to make Web content and Web applications (especially those developed with Ajax and JavaScript) more accessible to people with disabilities.
 
 This specification provides an ontology of roles, states, and properties that define accessible user interface elements and can be used to improve the accessibility and interoperability of web content and applications.
 
-Role
-------
+## 4.1. Role
 
 The role attribute defines the type of element. There are a lot of values that can be used, such as dialog, button, checkbox, progressbar, etc. See a list of roles in Mozilla Aria Techniques.
 
 Web developers must not use the ARIA role and aria-* attributes in a manner that conflicts with the semantics described in the Document conformance requirements for use of ARIA attributes in HTML table.
 
-Most useful ARIA attributes
-------
+## 4.2. Most useful ARIA attributes
 
 - aria-hidden
 
@@ -85,8 +79,7 @@ Areas or widgets with dynamic content which updates without a page reload can be
 See more about WAI-ARIA on [W3C Using ARIA](https://w3c.github.io/using-aria/).
 
 
-Pa11y
-=====
+# 5. Pa11y
 
 [Pa11y](http://pa11y.org/) is a automated accessibility testing tool. It runs HTML CodeSniffer from the command line for programmatic accessibility reporting.
 
@@ -98,8 +91,7 @@ The report returns a lot of issues classified between Errors, Warnings or Notice
 
 There are a lot of techniques that can be applied depending on the failed success criterion. See the complete [list of success criterion and techniques here](http://squizlabs.github.io/HTML_CodeSniffer/Standards/WCAG2/).
 
-Install
-------
+## 5.1. Install
 
 Install Pa11y globally with [this npm package](https://www.npmjs.com/package/pa11y):
 
@@ -107,8 +99,7 @@ Install Pa11y globally with [this npm package](https://www.npmjs.com/package/pa1
 
 We used pa11y version 5.x (currently beta version) in order to be able to use Chromium - pa11y 4.x uses phantomjs.
 
-How to use
-------
+## 5.2. How to use
 
 Run an accessibility test against a URL:
 
@@ -127,23 +118,20 @@ pa11y('http://example.com/').then((results) => {
 See more in the [README on Pa11y github page](https://github.com/pa11y/pa11y/).
 
 
-ADA Reporter
-=====
+# 6. ADA Reporter
 
 The ADA Reporter is a NPM Package that analyzes several pages on the common platform banners (Saks, Saks Off 5th and Lord & Taylor) and generate a report with the accessibility results.
 
 All the necessary documentation to install and run can be found in [this repository on Github](https://github.com/saksdirect/ada-reporter).
 
 
-Reporter script
-------
+## 6.1. Reporter script
 
 The core command-line ada-reporter generates a report with the code errors found by banner and page in a JSON file. This generated report is used in Google Exporter, Dashboard and in the Pipeline.
 
 See options running `ada-reporter --help`
 
-Google Exporter
-------
+## 6.2. Google Exporter
 
 Is possible to send the generated report to a Google Spreadsheet running the following command from project folder:
 
@@ -151,8 +139,7 @@ Is possible to send the generated report to a Google Spreadsheet running the fol
 node google.js
 ```
 
-Dashboard
-------
+## 6.3. Dashboard
 
 There is an accessibility dashboard to display the report results available on the `./reports` directory. Start the express server running:
 ```
@@ -162,8 +149,7 @@ node dashboard.js
 ![Accessibility Dashboard][img-dashboard]
 
 
-Roadmap/TODO
-------
+## 6.4. Roadmap/TODO
 
 There are a lot of things to do:
 - Split ADA Reporter project in different repositories by functionality;
@@ -171,8 +157,7 @@ There are a lot of things to do:
 - Run pa11y actions from ada-reporter script (currently the actions are in another branch);
 
 
-Functional Accessibility Tests
-=====
+# 7. Functional Accessibility Tests
 
 The main purpose of this test is to validate the execution of the purchase flow by a visually impaired user, having all navigation and interaction via a keyboard.
 
@@ -180,14 +165,13 @@ The main purpose of this test is to validate the execution of the purchase flow 
 
 The tests are in the structure of Smoke tests and can be found in the saks_website repository.
 
-Run via command line
+Run via command line:
 ```
 ./gradlew smokeTestSaksAccessibility -Dwebsite=<url_environment>
 ```
 
 
-Accessibility Pipeline
-=====
+# 8. Accessibility Pipeline
 
 The accessibility pipeline can be found on http://go.saksdirect.com/go/pipelines.
 
@@ -196,8 +180,7 @@ The first step uses ADA Reporter script to analyze issues from deployed code on 
 The second step execute accessibility functional tests.
 
 
-Screen Readers
-=====
+# 9. Screen Readers
 
 Screen readers convert digital text into synthesized speech. They empower users to hear content and navigate with the keyboard.
 
@@ -211,8 +194,7 @@ Some browsers seem to work better with certain screen readers:
 
 
 
-Voice Over
-------
+## 9.1. Voice Over
 
 - Built into Apple Inc.'s macOS and iOS
 - Free
@@ -225,8 +207,7 @@ Voice Over
 
 
 
-NVDA
-------
+## 9.2. NVDA
 
 - Windows 7 or superior
 - Free (https://www.nvaccess.org/download/)
