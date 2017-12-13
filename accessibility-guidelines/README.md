@@ -54,7 +54,7 @@ The WCAG 2.0 has 12 guidelines that are organized under 4 principles: perceivabl
 
 ![WCAG Standard][img-wcag-standard]
 
-In order to be ADA compliant, we adopted the WCAG 2.0 AA standard.
+In order to be ADA compliant, we adopted the **WCAG 2.0 AA** standard.
 
 # 4. ARIA
 
@@ -64,15 +64,15 @@ This specification provides an ontology of roles, states, and properties that de
 
 ## 4.1. Role
 
-The role attribute defines the type of element. There are a lot of values that can be used, such as dialog, button, checkbox, progressbar, etc. See a list of roles in Mozilla Aria Techniques.
+The `role` attribute defines the type of element. There are a lot of values that can be used, such as dialog, button, checkbox, progressbar, etc. See a list of roles in [Mozilla Aria Techniques](https://developer.mozilla.org/pt-BR/docs/Web/Accessibility/ARIA/ARIA_Techniques).
 
-Web developers must not use the ARIA role and aria-* attributes in a manner that conflicts with the semantics described in the Document conformance requirements for use of ARIA attributes in HTML table.
+Web developers **must not** use the ARIA role and aria-* attributes in a manner that conflicts with the semantics described in the [Document conformance requirements for use of ARIA attributes in HTML](https://www.w3.org/TR/html-aria/#docconformance) table.
 
 ## 4.2. Most useful ARIA attributes
 
 - aria-hidden
 
-The aria-hidden="true" property turns a html element hidden/ignored by screen readers. This is very useful in decorative elements, such as a decorative icon inside a text block or title.
+The `aria-hidden="true"` property turns a html element hidden/ignored by screen readers. This is very useful in decorative elements, such as a decorative icon inside a text block or title.
 
 - aria-label / aria-labelledby
 
@@ -80,7 +80,7 @@ This attributes are used to tell screen reader which text should be read in a el
 
 - aria-live
 
-Areas or widgets with dynamic content which updates without a page reload can be decorated with aria-live="polite". The screen reader will speak changes in these areas whenever the user is idle. [See more about aria-live](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions).
+Areas or widgets with dynamic content which updates without a page reload can be decorated with `aria-live="polite"`. The screen reader will speak changes in these areas whenever the user is idle. [See more about aria-live](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions).
 
 See more about WAI-ARIA on [W3C Using ARIA](https://w3c.github.io/using-aria/).
 
@@ -126,16 +126,16 @@ See more in the [README on Pa11y github page](https://github.com/pa11y/pa11y/).
 
 # 6. ADA Reporter
 
-The ADA Reporter is a NPM Package that analyzes several pages on the common platform banners (Saks, Saks Off 5th and Lord & Taylor) and generate a report with the accessibility results.
+The ADA Reporter is a NPM Package that uses Pa11y to analyzes several pages on the common platform banners (Saks, Saks Off 5th and Lord & Taylor) and generate a report with the accessibility results.
 
 All the necessary documentation to install and run can be found in [this repository on Github](https://github.com/saksdirect/ada-reporter).
 
 
 ## 6.1. Reporter script
 
-The core command-line ada-reporter generates a report with the code errors found by banner and page in a JSON file. This generated report is used in Google Exporter, Dashboard and in the Pipeline.
+The core command-line `ada-reporter` generates a report with the code errors found by banner and page in a JSON file. This generated report is used in Google Exporter, Dashboard and in the Pipeline.
 
-See options running `ada-reporter --help`
+See the options running `ada-reporter --help`
 
 ## 6.2. Google Exporter
 
@@ -169,7 +169,7 @@ The main purpose of this test is to validate the execution of the purchase flow 
 
 **Structure (Page objects + FluentLenium)**
 
-The tests are in the structure of Smoke tests and can be found in the saks_website repository.
+The tests are in the structure of Smoke tests and can be found in the `saks_website` repository.
 
 Run via command line:
 ```
