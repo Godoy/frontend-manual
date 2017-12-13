@@ -219,7 +219,6 @@ Some browsers seem to work better with certain screen readers:
 
 
 
+[img-wcag-standard]: https://github.com/saksdirect/frontend-manual/raw/master/accessibility-guidelines/imgs/wcag-standard.png "WCAG Standard"
 
-[img-wcag-standard]: https://github.com/saksdirect/frontend-manual/raw/master/accessibility-guidelines/wcag-standard.png "WCAG Standard"
-
-[img-dashboard]: https://github.com/saksdirect/frontend-manual/raw/master/accessibility-guidelines/dashboard.png "Accessibility Dashboard"
+[img-dashboard]: https://github.com/saksdirect/frontend-manual/raw/master/accessibility-guidelines/imgs/dashboard.png "Accessibility Dashboard"
